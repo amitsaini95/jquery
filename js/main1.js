@@ -1,17 +1,17 @@
-var total = [];
-$(document).ready(function () {
 
+$(document).ready(function () {
+  var total=[];
   if (localStorage.getItem('total')) {
     var data = JSON.parse(localStorage.getItem('total'));
     $(data).each(function (i, v) {
       i = i + 1
-      $('main').append('<section><h1>' + v.title + '</h1><button class="btn-cross" id="second" onclick="deleteitem(this)">X</button></section>')
+      $('main').append('<section><h1>' + v.title + '</h1><button class="btn-cross" id="test" onclick="deleteitem(this)">X</button></section>')
       $('.Heading1 select').append("<option value=" + i + ">" + v.title + "</option>")
       $('.Heading2 select').append("<option value=" + i + ">" + v.title + "</option>")
       $(v.subheading).each(function (i1, v1) {
         var Head = i
         var SubHead = i1 + 3;
-        $("main section:nth-child(" + Head + ")").append("<div class='box'><h5>" + v1.subtitle + "</h5><button class='btn-cross' id='second' onclick='deleteitem(this)'>X</button></div>");
+        $("main section:nth-child(" + Head + ")").append("<div class='box'><h5>" + v1.subtitle + "</h5><button class='btn-cross' id='test' onclick='deleteitem(this)'>X</button></div>");
         $(v1.form).each(function (i2, v2) {
           i2 = i2 + 1;
           $("main section:nth-child(" + Head + ") div:nth-child(" + SubHead + ")").append("<p class='input'>" + v2 + " </p>");
@@ -23,7 +23,7 @@ $(document).ready(function () {
     event.preventDefault();
     var textinput = $(".HeadingForm").val();
     console.log(textinput)
-    $('main').append('<section><h1>' + textinput + '</h1><button class="btn-cross" id="second" onclick="deleteitem(this)">X</button></section>');
+    $('main').append('<section><h1>' + textinput + '</h1><button class="btn-cross" id="test" onclick="deleteitem(this)">X</button></section>');
     $('.form2 option').remove()
     $('.Heading1 select ').append("<option value='' selected disabled>--Select Heading--</option>")
     $('.Heading2 select option').remove()
@@ -42,7 +42,7 @@ $(document).ready(function () {
     var heading = $('.Head_drp').val();
     var textinput = $(".text-1").val();
     console.log(textinput, heading)
-    $("main section:nth-child(" + heading + ")").append("<div class='box'><h5>" + textinput + "</h5><button class='btn-cross' id='second' onclick='deleteitem(this)'>X</button></div>");
+    $("main section:nth-child(" + heading + ")").append("<div class='box'><h5>" + textinput + "</h5><button class='btn-cross' id='test' onclick='deleteitem(this)'>X</button></div>");
     $('.Heading3 select option').remove()
     $('.Heading3 select ').append("<option value='' selected disabled>--Select Heading--</option>")
     storage();
@@ -82,34 +82,44 @@ $(document).ready(function () {
       var form_name = $(".form-name").val();
       var form_action = $(".form-action").val();
       var form_option = $(".form-option").val();
-      if( $('.readonly').is(':checked') ){
+      
+      if(($('.readonly').is(':checked') && $('.required').is(':checked')) && $('.disabled').is(':checked')) {
+        var data = '<label> ' + form_label + '</label><br><input type="' + dropdown + '" class="' + form_class + '" id="' + form_id + '" label="' + form_label + '" placeholder="' + form_placeholder + '" value="' + form_value + '" name="' + form_name + '" action="' + form_action + '" option="' + form_option + '" readonly disabled  required  />'
+        $("main section:nth-child(" + heading + ") div:nth-child(" + sub_heading + ")").append("<p class='input'>" + data + " <br><button class='btn-cross' onclick='deleteitem(this)'>X</button></p>");
+        // $(this).attr('readonly',true)
+      }
+      else if(($('.readonly').is(':checked') && $('.disabled').is(':checked'))){
+        var data = '<label> ' + form_label + '</label><br><input type="' + dropdown + '" class="' + form_class + '" id="' + form_id + '" label="' + form_label + '" placeholder="' + form_placeholder + '" value="' + form_value + '" name="' + form_name + '" action="' + form_action + '" option="' + form_option + '" readonly disabled  />'
+        $("main section:nth-child(" + heading + ") div:nth-child(" + sub_heading + ")").append("<p class='input'>" + data + " <br><button class='btn-cross' onclick='deleteitem(this)'>X</button></p>");
+
+      }
+      else if(($('.disabled').is(':checked') && $('.required').is(':checked'))){
+        var data = '<label> ' + form_label + '</label><br><input type="' + dropdown + '" class="' + form_class + '" id="' + form_id + '" label="' + form_label + '" placeholder="' + form_placeholder + '" value="' + form_value + '" name="' + form_name + '" action="' + form_action + '" option="' + form_option + '"  disabled  required />'
+        $("main section:nth-child(" + heading + ") div:nth-child(" + sub_heading + ")").append("<p class='input'>" + data + " <br><button class='btn-cross' onclick='deleteitem(this)'>X</button></p>");
+
+      }
+      else if(($('.readonly').is(':checked') && $('.required').is(':checked'))){
+        var data = '<label> ' + form_label + '</label><br><input type="' + dropdown + '" class="' + form_class + '" id="' + form_id + '" label="' + form_label + '" placeholder="' + form_placeholder + '" value="' + form_value + '" name="' + form_name + '" action="' + form_action + '" option="' + form_option + '"  readnly required />'
+        $("main section:nth-child(" + heading + ") div:nth-child(" + sub_heading + ")").append("<p class='input'>" + data + " <br><button class='btn-cross' onclick='deleteitem(this)'>X</button></p>");
+
+      }
+      else if ($('.readonly').is(':checked')) {
         var data = '<label> ' + form_label + '</label><br><input type="' + dropdown + '" class="' + form_class + '" id="' + form_id + '" label="' + form_label + '" placeholder="' + form_placeholder + '" value="' + form_value + '" name="' + form_name + '" action="' + form_action + '" option="' + form_option + '" readonly   />'
         $("main section:nth-child(" + heading + ") div:nth-child(" + sub_heading + ")").append("<p class='input'>" + data + " <br><button class='btn-cross' onclick='deleteitem(this)'>X</button></p>");
       }
 
-      else if($('.readonly').is(':checked') && ($('.disabled').is(':checked'))){
-        var data = '<label> ' + form_label + '</label><br><input type="' + dropdown + '" class="' + form_class + '" id="' + form_id + '" label="' + form_label + '" placeholder="' + form_placeholder + '" value="' + form_value + '" name="' + form_name + '" action="' + form_action + '" option="' + form_option + '" readonly disabled   />'
-        $("main section:nth-child(" + heading + ") div:nth-child(" + sub_heading + ")").append("<p class='input'>" + data + " <br><button class='btn-cross' onclick='deleteitem(this)'>X</button></p>");
-      // $(this).attr('readonly',true)
-      }
-      else if($('.disabled').is(':checked'))
-      {
+      else if ($('.disabled').is(':checked')) {
         var data = '<label> ' + form_label + '</label><br><input type="' + dropdown + '" class="' + form_class + '" id="' + form_id + '" label="' + form_label + '" placeholder="' + form_placeholder + '" value="' + form_value + '" name="' + form_name + '" action="' + form_action + '" option="' + form_option + '"  disabled  />'
         $("main section:nth-child(" + heading + ") div:nth-child(" + sub_heading + ")").append("<p class='input'>" + data + " <br><button class='btn-cross' onclick='deleteitem(this)'>X</button></p>");
       }
-      else if($('.required').is(':checked'))
-      {
+      else if ($('.required').is(':checked')) {
         var data = '<label> ' + form_label + '</label><br><input type="' + dropdown + '" class="' + form_class + '" id="' + form_id + '" label="' + form_label + '" placeholder="' + form_placeholder + '" value="' + form_value + '" name="' + form_name + '" action="' + form_action + '" option="' + form_option + '" required  />'
         $("main section:nth-child(" + heading + ") div:nth-child(" + sub_heading + ")").append("<p class='input'>" + data + " <br><button class='btn-cross' onclick='deleteitem(this)'>X</button></p>");
       }
-     
-      else{
+      else {
         var data = '<label> ' + form_label + '</label><br><input type="' + dropdown + '" class="' + form_class + '" id="' + form_id + '" label="' + form_label + '" placeholder="' + form_placeholder + '" value="' + form_value + '" name="' + form_name + '" action="' + form_action + '" option="' + form_option + '"   />'
         $("main section:nth-child(" + heading + ") div:nth-child(" + sub_heading + ")").append("<p class='input'>" + data + " <br><button class='btn-cross' onclick='deleteitem(this)'>X</button></p>");
       }
-      
-    
-
       $('.form3')[0].reset();
       storage();
     });
@@ -139,20 +149,18 @@ function storage() {
     total.push({ 'title': last_heading, 'subheading': hs })
     localStorage.setItem('total', JSON.stringify(total));
     localStorage.getItem('total', JSON.stringify(total));
-
   })
 }
 $(function (event) {
   $("main").sortable({
     connectWith: "main",
     update: function (event, ui) {
+    
       storage();
     }
 
   });
-
   $("section").sortable({
-
     connectWith: "section",
     cancel: "h1",
     update: function (event, ui) {
@@ -162,7 +170,7 @@ $(function (event) {
 
   $(".box").sortable({
     connectWith: "div",
-    cancel: "h5 , #second",
+    cancel: "h5 , #test",
     update: function (event, ui) {
       storage();
     }
@@ -172,5 +180,9 @@ $(function (event) {
 });
 function deleteitem(s) {
   $(s).parent().remove();
+   window.localStorage.clear();
   storage();
 } 
+
+  
+  

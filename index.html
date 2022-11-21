@@ -6,6 +6,11 @@
     <title>jQuery Project</title>
 </head>
 <body>
+   <style>
+    .box{
+        padding-left: 40px;
+    }
+   </style>
     <div class="container py-2">
         <div class="row">
             <div class="col-lg-4">
@@ -33,13 +38,14 @@
                             <input  class="HeadingForm form-control" type="text"
                                 id="Heading1" placeholder="Enter Heading">
                         </div>
-                                          
+                             
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" id="headAdd">Submit</button> 
+                        </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" id="headAdd">Submit</button> 
-                </div>
+               
             </div>
         </div>
     </div>
@@ -64,13 +70,15 @@
                                 id="message-text">
                         </div>
                        
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" id="btnSubCategory">Submit</button>
+                     
+                        </div>
                         </form>
+                      
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" id="btnSubCategory">Submit</button>
-                    
-                </div>
+             
             </div>
         </div>
     </div>
