@@ -7,20 +7,20 @@ function localdatastorage() {
     $('.Heading2 select').append("<option value='' > Select Heading </option>")
     $(data).each(function (k, v) {
       k = k + 1
-      $('main').append('<section><h1>' + v.heading + '</h1><button class="btn-cross" id="test" onclick="deleteitem(this)">X</button></section>')
+      $('main').append('<section><h1>' + v.heading + '</h1><button class="btn-cross"  onclick="deleteitem(this)">X</button></section>')
       $('.Heading1 select').append("<option value=" + k + ">" + v.heading + "</option>")
       $('.Heading2 select').append("<option value=" + k + ">" + v.heading + "</option>")
       $(v.subheading).each(function (k1, v1) {
         var heading = k
         var subheading = k1 + 3;
-        $("main section:nth-child(" + heading + ")").append("<div class='box'><h5>" + v1.subtitle + "</h5><button class='btn-cross' id='test' onclick='deleteitem(this)'>X</button></div>");
+        $("main section:nth-child(" + heading + ")").append("<div class='box'><h5>" + v1.subtitle + "</h5><button class='btn-cross'  onclick='deleteitem(this)'>X</button></div>");
         $(v1.form).each(function (i2, v2) {
           i2 = i2 + 1;
           $("main section:nth-child(" + heading + ") div:nth-child(" + subheading + ")").append("<p class='input'>" + v2 + " </p>");
         })
         $(v1.select).each(function (i3, v3) {
           i3 = i3 + 1;
-          $("main section:nth-child(" + heading + ") div:nth-child(" + subheading + ")  ").append("<select class='select'>" + v3 + "</select>");
+          $("main section:nth-child(" + heading + ") div:nth-child(" + subheading + ")  ").append("<select class='select' >" + v3 + "</select>");
         })
       })
     })
@@ -34,7 +34,7 @@ $(document).ready(function () {
     event.preventDefault();
     var textinput = $(".HeadingForm").val();
     console.log(textinput)
-    $('main').append('<section><h1>' + textinput + '</h1><button class="btn-cross" id="test" onclick="deleteitem(this)">X</button></section>');
+    $('main').append('<section><h1>' + textinput + '</h1><button class="btn-cross"  onclick="deleteitem(this)">X</button></section>');
     $('.form2 option').remove()
     $('.Heading1 select ').append("<option value='' selected disabled>--Select Heading--</option>")
     $('.Heading2 select option').remove()
@@ -70,6 +70,7 @@ $(document).ready(function () {
       $('.Heading3 select').append("<option value=" + key + ">" + sub_in_form + "</option>")
       // Sort();
       storage();
+      
      
     })
   });
@@ -103,6 +104,8 @@ $(document).ready(function () {
       var form_name = $(".form-name").val();
       var form_action = $(".form-action").val();
       if (dropdown == "select") {
+    
+         if($('.disabled').is(':checked') && $('.required').is(':checked') && $('.readonly').is(':checked')){
         var array = $('.form-option').val();
         var a = array.split(",");
         var selectArr = [];
@@ -110,9 +113,104 @@ $(document).ready(function () {
           i = i + 1;
           selectArr.push('<option value=' + i + '>' + v + '</option>')
         })
-        $("main section:nth-child(" + heading + ") div:nth-child(" + sub_heading + ")  ").append('<select></select>')
+        $("main section:nth-child(" + heading + ") div:nth-child(" + sub_heading + ")  ").append('<select disabled required readonly ></select>')
         for (let i in selectArr) {
           $("main section:nth-child(" + heading + ") div:nth-child(" + sub_heading + ")  select  ").append(selectArr[i])
+        }
+         }
+        else if (($('.readonly').is(':checked') && $('.disabled').is(':checked'))) {
+        var array = $('.form-option').val();
+        var a = array.split(",");
+        var selectArr = [];
+        $.each(a, function (i, v) {
+          i = i + 1;
+          selectArr.push('<option value=' + i + '>' + v + '</option>')
+        })
+        $("main section:nth-child(" + heading + ") div:nth-child(" + sub_heading + ")  ").append('<select disabled readonly ></select>')
+        for (let i in selectArr) {
+          $("main section:nth-child(" + heading + ") div:nth-child(" + sub_heading + ")  select  ").append(selectArr[i])
+        }
+        }
+        else if (($('.disabled').is(':checked') && $('.required').is(':checked'))) {
+          var array = $('.form-option').val();
+          var a = array.split(",");
+          var selectArr = [];
+          $.each(a, function (i, v) {
+            i = i + 1;
+            selectArr.push('<option value=' + i + '>' + v + '</option>')
+          })
+          $("main section:nth-child(" + heading + ") div:nth-child(" + sub_heading + ")  ").append('<select disabled required ></select>')
+          for (let i in selectArr) {
+            $("main section:nth-child(" + heading + ") div:nth-child(" + sub_heading + ")  select  ").append(selectArr[i])
+          }
+          
+        }
+        else if (($('.readonly').is(':checked') && $('.required').is(':checked'))) {
+          var array = $('.form-option').val();
+          var a = array.split(",");
+          var selectArr = [];
+          $.each(a, function (i, v) {
+            i = i + 1;
+            selectArr.push('<option value=' + i + '>' + v + '</option>')
+          })
+          $("main section:nth-child(" + heading + ") div:nth-child(" + sub_heading + ")  ").append('<select readonly required ></select>')
+          for (let i in selectArr) {
+            $("main section:nth-child(" + heading + ") div:nth-child(" + sub_heading + ")  select  ").append(selectArr[i])
+          }
+        }
+        else if ($('.readonly').is(':checked')) {
+          var array = $('.form-option').val();
+          var a = array.split(",");
+          var selectArr = [];
+          $.each(a, function (i, v) {
+            i = i + 1;
+            selectArr.push('<option value=' + i + '>' + v + '</option>')
+          })
+          $("main section:nth-child(" + heading + ") div:nth-child(" + sub_heading + ")  ").append('<select readonly  ></select>')
+          for (let i in selectArr) {
+            $("main section:nth-child(" + heading + ") div:nth-child(" + sub_heading + ")  select  ").append(selectArr[i])
+          }
+
+        }
+        else if ($('.disabled').is(':checked')) {
+          var array = $('.form-option').val();
+          var a = array.split(",");
+          var selectArr = [];
+          $.each(a, function (i, v) {
+            i = i + 1;
+            selectArr.push('<option value=' + i + '>' + v + '</option>')
+          })
+          $("main section:nth-child(" + heading + ") div:nth-child(" + sub_heading + ")  ").append('<select disabled></select>')
+          for (let i in selectArr) {
+            $("main section:nth-child(" + heading + ") div:nth-child(" + sub_heading + ")  select  ").append(selectArr[i])
+          }
+        }
+        else if ($('.required').is(':checked')) {
+          var array = $('.form-option').val();
+          var a = array.split(",");
+          var selectArr = [];
+          $.each(a, function (i, v) {
+            i = i + 1;
+            selectArr.push('<option value=' + i + '>' + v + '</option>')
+          })
+          $("main section:nth-child(" + heading + ") div:nth-child(" + sub_heading + ")  ").append('<select  required ></select>')
+          for (let i in selectArr) {
+            $("main section:nth-child(" + heading + ") div:nth-child(" + sub_heading + ")  select  ").append(selectArr[i])
+          }
+          
+        }
+        else{
+          var array = $('.form-option').val();
+          var a = array.split(",");
+          var selectArr = [];
+          $.each(a, function (i, v) {
+            i = i + 1;
+            selectArr.push('<option value=' + i + '>' + v + '</option>')
+          })
+          $("main section:nth-child(" + heading + ") div:nth-child(" + sub_heading + ")  ").append('<select ></select>')
+          for (let i in selectArr) {
+            $("main section:nth-child(" + heading + ") div:nth-child(" + sub_heading + ")  select  ").append(selectArr[i])
+          }
         }
       }
       if (dropdown != "select") {
@@ -190,53 +288,44 @@ function storage() {
     total.push({ 'heading': last_heading, 'subheading': hs })
     localStorage.setItem('total', JSON.stringify(total));
     JSON.parse(localStorage.getItem('total'));
-
-
   })
 
 }
-
-// function Sort(event){
 $(function (event) {
 
   $("main").sortable({
     connectWith: "main",
+    
+    change:function(event,ui){
+      storage();
+    
+    },
     update: function (event, ui) {
       storage();
       $('main section').remove()
       localdatastorage();
-
-    }
-  });
-
-  $("section").sortable({
-    connectWith: "section",
-    cancel: "h1,#test",
-    update: function (event, ui) {
-      storage();
-     $('main section').remove();
-      localdatastorage();
-    
-
-    }
-
-  });
-
-  $(".box").sortable({
-    connectWith:"div",
-    cancel:"h5,#test",
-   
-     update: function (event, ui) {
-      storage();
-      localdatastorage();
-      
-    
-    }
+      location.reload();
+    },
   });
   
-})
-// };
+  $("section").sortable({
+  
+    change:function(event,ui){
+      storage();
+    },
+    update: function (event, ui) {
+      storage();
+      
+    },
+    connectWith:"section",
+    cancel: "h1, button",
 
+  });
+
+  
+  $('main section').disableSelection();
+  
+})
 function deleteitem(s) {
   $(s).parent().remove();
   window.localStorage.clear();
